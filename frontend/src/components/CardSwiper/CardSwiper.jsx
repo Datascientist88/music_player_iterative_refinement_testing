@@ -45,13 +45,7 @@ const tracks = [
     url: track3_url,
     cover: cover3_img,
   },
-  {
-    title: "مين دا اللي نسيك",
-    artist: "نانسي عجرم",
-    rating: "8.9",
-    url: track3_url,
-    cover: cover3_img,
-  },
+
   {
     title: "بحبك وحشتني",
     artist: "حسين الجسمي",
