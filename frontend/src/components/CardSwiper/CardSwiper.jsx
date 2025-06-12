@@ -1,7 +1,7 @@
 // src/components/CardSwiper/CardSwiper.js
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCards, Mousewheel } from "swiper/modules";
+import { EffectCards, Mousewheel, Pagination } from "swiper/modules";
 
 // Import Swiper styles for the cards effect
 import "swiper/css";
@@ -14,10 +14,13 @@ import track1_url from "../../assets/music/track1.mp3";
 import track2_url from "../../assets/music/track2.mp3";
 import track3_url from "../../assets/music/track3.mp3";
 import track4_url from "../../assets/music/track4.mp3";
+import track5_url from "../../assets/music/track5.mp3";
 import cover1_img from "../../assets/images/cover1.jpg";
 import cover2_img from "../../assets/images/cover2.jpg";
 import cover3_img from "../../assets/images/cover3.jpg";
 import cover4_img from "../../assets/images/cover4.jpg";
+import cover5_img from "../../assets/images/cover5.jpg";
+
 
 
 const tracks = [
@@ -55,24 +58,36 @@ const tracks = [
     rating: "9.0",
     url: track4_url,
     cover: cover4_img,
-  }
+  },
+  {
+    title: "بيت حبيبي",
+    artist: "يارا",
+    rating: "9.1",
+    url: track5_url,
+    cover: cover5_img,
+  },
+
 ];
 
 const CardSwiper = ({ onPlayTrack }) => {
   return (
     <section className="card-swiper-section">
       <div className="content">
-        <div className="swiper">
+        <div className="swiper-wrapper">
           <Swiper
             effect={"cards"}
             grabCursor={true}
-            modules={[EffectCards, Mousewheel]}
+            modules={[EffectCards, Mousewheel, Pagination]}
             initialSlide={0}
             speed={800} // Speed increased for a smoother effect
             loop={true}
             rotate={true}
             mousewheel={{
               invert: false,
+            }}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
             }}
             className="my-card-swiper"
           >
@@ -87,6 +102,7 @@ const CardSwiper = ({ onPlayTrack }) => {
                     <h2>{track.title}</h2>
                     <p>{track.artist}</p>
                   </div>
+                  <div className="btn-group">
                   <button
                     className="card-play-button"
                     onClick={() => onPlayTrack(track.url)}
@@ -98,10 +114,13 @@ const CardSwiper = ({ onPlayTrack }) => {
                     <span className="visually-hidden">Play</span>
                   </button>
                 </div>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
+        <div className="swiper-pagination"></div>
+        
       </div>
 
       <ul className="circles">
