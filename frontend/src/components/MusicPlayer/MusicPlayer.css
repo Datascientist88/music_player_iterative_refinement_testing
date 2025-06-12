@@ -1,0 +1,520 @@
+
+
+/* Using theme variables defined in App.css */
+:root {
+    --speed: 18s;
+    --bg: radial-gradient(#200, #000);
+    --bg2: radial-gradient(#000, #000);
+    --thumb-height: 50px;
+    --moz-thumb-height: 38px;
+    --thumb-margin: -44px;
+    --moz-thumb-margin: -20px;
+    --rad-sz-a1: 0%;
+}
+
+* {
+    box-sizing: border-box !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 2rem;
+}
+
+.wrapper {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.player {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #00f0;
+    background-color: #0000;
+    background-image: var(--player-bg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+}
+
+.visualizer {
+    position: relative;
+    width: 348px;
+    height: 348px;
+    padding: 24px;
+    background-color: #0000;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.visualizer-border {
+    position: absolute;
+    width: 348px;
+    height: 348px;
+    border-radius: 50%;
+}
+
+#canvas {
+    border-radius: 50%;
+    position: absolute;
+    margin: 2.5px;
+    z-index: -5;
+    overflow: hidden;
+    background-color: #fff0;
+}
+
+.conic-bg {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow: 0 0 20px 12px #000c;
+}
+
+.svg-wrapper {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+.svg-flower,
+.svg-flower2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 2;
+    overflow: hidden;
+    top: 24px;
+    left: 24px;
+}
+
+.flower {
+    width: 100%;
+    height: 100%;
+}
+
+.flowerSpinner {
+    animation: flowerSpinner 10s linear infinite;
+}
+
+@keyframes flowerSpinner {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.bg-crcl {
+    fill: #fff;
+    stroke: none;
+}
+
+.rad-ten-wavey {
+    fill: url(#radTen);
+    fill-opacity: 0.85;
+    stroke: none;
+    filter: drop-shadow(0 0 4px #d0f);
+}
+
+.rad-ten-wavey-unmsk {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 0.42;
+}
+
+.dlion-tint {
+    fill: #000b;
+    fill-opacity: 0.8;
+    stroke: #fff;
+    transform-origin: 50%;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 1px #9099);
+}
+
+.lrg-petals {
+    fill: url(#lrgPetals);
+    stroke: none;
+    transform-origin: 50%;
+    transform: scale(0.6);
+}
+
+.lrg-petals-animation {
+    animation: lrgPetalsAnimation 16s linear infinite;
+}
+
+@keyframes lrgPetalsAnimation {
+    50% {
+        filter: hue-rotate(280deg);
+    }
+}
+
+.leafdividers {
+    fill: url(#leafDividers);
+    stroke: #000;
+    stroke-width: 0.2;
+}
+
+.dandylion {
+    fill: url(#crcls-pattern);
+    stroke: #f8d0;
+    stroke-width: 0.3;
+    filter: drop-shadow(0 0 4px #8f8b);
+}
+
+.mid-leaves-bling {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 0.5;
+    filter: drop-shadow(2px 2px 18px #fff);
+}
+
+.crcl-masked {
+    fill: #0004;
+}
+
+.crcl-unamsked {
+    fill: #fff4;
+}
+
+.crcls {
+    fill: none;
+}
+
+/*      new         */
+.hollow-petals {
+    fill: url(#hollowPetals0);
+    stroke: none;
+}
+
+.heart {
+    fill: url(#heart);
+    stroke: none;
+    opacity: 0.92;
+}
+
+#crcls-pattern {
+    fill: #000a;
+    stroke: #fff9;
+    stroke-width: 0.93;
+}
+
+.patternedCircle {
+    fill: url(#crcls-pattern);
+    stroke: none;
+}
+
+.petal-bg-unmsk {
+    fill: #0007;
+    stroke: #0009;
+}
+
+.petal-bg-msk {
+    fill: #0007;
+    stroke: #0009;
+    stroke-width: 0.4;
+}
+
+.petal-bg {
+    fill: url(#petalBg);
+    stroke: #6c9;
+    stroke-width: 0.43;
+}
+
+.petal-bg-top {
+    fill: #ff0;
+    stroke: #6c4;
+    stroke-width: 0.43;
+}
+
+.petal {
+    fill: url(#petalGr);
+    stroke: url(#newFlowerGradCtr);
+    stroke-width: 0.3;
+}
+
+.large-dots {
+    fill: none;
+    stroke: url(#lrgDots);
+    stroke-width: 8;
+    stroke-dasharray: 0.3 6.6;
+}
+
+.filament {
+    fill: #ff06;
+    stroke: #32f8;
+    stroke-width: 0.43;
+
+}
+
+.filament-animation {
+    --dashes: 20;
+    stroke-dasharray: var(--dashes);
+    stroke-dashoffset: var(--dashes);
+    animation: filamentAnimation 8s linear infinite;
+}
+
+@keyframes filamentAnimation {
+    50% {
+        stroke-width: 1.63;
+        stroke-dashoffset: 0;
+        filter: hue-rotate(260deg);
+    }
+}
+
+.anther {
+    fill: #da08;
+    stroke: #fcf;
+    stroke-width: 0.525;
+}
+
+.pistil {
+    transform-origin: 50%;
+}
+
+.pistil-animation {
+    animation: rotatePistil 8s linear infinite reverse;
+}
+
+@keyframes rotatePistil {
+    to {
+        transform: rotate(1turn);
+        filter: hue-rotate(320deg) sepia(60%);
+    }
+}
+
+
+/* --- Controls --- */
+.controls {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 50px;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    gap: 15px;
+}
+
+.svg-bttns {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.svg-bttns line,
+.svg-bttns path,
+.svg-bttns circle {
+    stroke: var(--text-color);
+    stroke-width: 5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: #1111;
+    /* Transparent fill */
+    transition: all 0.2s ease;
+}
+
+.bttn-play {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--bttn-brdr1);
+    cursor: pointer;
+    background-color: #3305;
+    box-shadow: 2px 2px 5px #0006;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.bttn-play:hover {
+    border-color: var(--bttn-brdr2);
+    box-shadow: 2px 2px 8px #0009;
+}
+
+.bttn-play:hover .svg-bttns line,
+.bttn-play:hover .svg-bttns path {
+    stroke: var(--text-color-hover);
+}
+
+.volume-label {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.volume-wrapper {
+    transform: none;
+}
+
+#volume {
+    width: 100px;
+}
+
+.seekbar-wrapper {
+    flex-grow: 1;
+    /* Allow seekbar to take available space */
+}
+
+#seekbar {
+    width: 100%;
+}
+
+
+.input-range-wrapper {
+    position: relative;
+    height: 9px;
+    border-radius: 5px;
+    border: 1px solid var(--bttn-brdr1);
+    box-shadow: inset 1px 1px 4px #0006;
+    background-color: #9903;
+}
+
+.input-range-wrapper input[type=range] {
+    --webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    margin: 0;
+    cursor: pointer;
+}
+
+.input-range-wrapper input[type=range]:focus {
+    outline: none;
+}
+
+/* Thumb styles for Webkit */
+.input-range-wrapper input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 25px;
+    border-radius: 4px;
+    background-color: var(--text-color);
+    background-image: radial-gradient(var(--text-color-hover) 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    margin-top: -8px;
+    /* Center thumb vertically */
+}
+
+/* Thumb styles for Mozilla */
+.input-range-wrapper input[type=range]::-moz-range-thumb {
+    -moz-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 25px;
+    border-radius: 4px;
+    background-color: var(--text-color);
+    background-image: radial-gradient(var(--text-color-hover) 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    border: none;
+}
+
+.input-range-wrapper input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 0;
+    position: absolute;
+  }
+  
+  .input-range-wrapper input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 25px;
+    border-radius: 4px;  
+    background-color: var(--text-color);
+    background-image: radial-gradient(#cb0 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    cursor: pointer;
+  }
+  
+  .input-range-wrapper input::-moz-range-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+     width: 10px;
+    height: 25px;
+    border-radius: 4px;  
+    background-color: var(--text-color);
+    background-image: radial-gradient(#cb0 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    cursor: pointer;  
+}
+ .volume-wrapper{
+    --webkit-appearance: none;
+    width: 100px;
+    height: 10px;
+    position: absolute;
+}
+.volume-wrapper ::-moz-range-thumb{
+     -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+     width: 25px;
+    height: 25px;
+    border-radius: 4px;  
+    background-color: var(--text-color);
+    background-image: radial-gradient(#cb0 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    cursor: pointer;  
+
+}
+  /*      /volume         */
+.email {
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+    color: #3339;
+}     
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .wrapper {
+        width: 90vw;
+        height: 90vw;
+        max-width: 320px;
+        max-height: 320px;
+    }
+
+  
+    
+    #canvas {
+        width: calc(100% - 14%);
+        height: calc(100% - 14%);
+        top: 7%;
+        left: 7%;
+        margin: 0;
+    }
+
+    .controls {
+        flex-wrap: wrap;
+        height: auto;
+        gap: 10px;
+    }
+
+    .seekbar-wrapper {
+        width: 100%;
+        order: -1;
+        /* Move seekbar to top */
+    }
+}
