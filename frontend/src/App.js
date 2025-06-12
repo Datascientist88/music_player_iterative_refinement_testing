@@ -21,7 +21,7 @@ function App() {
     return (
         <div className="App">
             <header className="app-header">
-                <h1>Gemini Music</h1>
+                <h1>Aries Music ♈</h1>
                 <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             </header>
 
