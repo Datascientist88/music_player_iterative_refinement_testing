@@ -1,61 +1,41 @@
 /* src/components/ThemeToggle/ThemeToggle.css */
-
-/* Container and border base styles */
-.spectacledcoder-toggle-container {
-    width: 300px;
-    height: 130px;
-    margin: auto;
-    display: flex;
-    border-radius: 70px;
-    padding: 2px;
-    transition: background-color 0.5s, box-shadow 0.5s;
+.checkbox {
+    opacity: 0;
+    position: absolute;
 }
 
-.spectacledcoder-toggle-border {
-    width: 100%;
-    height: 100%;
-    border-radius: 70px;
-    margin: auto;
-    display: flex;
-    transition: background-color 0.5s, box-shadow 0.5s;
-}
-
-/* The moving toggle part */
-.spectacledcoder-toggle {
-    margin: auto;
-    margin-left: 15px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    transition: box-shadow 1s, background-color 1s, border 1s;
-    flex-shrink: 0; /* Prevent flex from shrinking the toggle */
-}
-
-.spectacledcoder-toggle:hover {
+.checkbox-label {
+    background-color: #111;
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: relative;
+    padding: 5px;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Animations */
-@keyframes roll {
-    100% {
-        transform: translateX(170px) rotate(360deg);
-    }
+.fa-moon {
+    color: #f1c40f;
 }
 
-@keyframes rollback {
-    0% {
-        transform: translateX(170px) rotate(360deg);
-    }
-    100% {
-        transform: translateX(0px) rotate(0deg);
-    }
+.fa-sun {
+    color: #f39c12;
 }
 
-/* Classes to trigger animations */
-.spectacledcoder-toggle.roll {
-    animation: roll 1.5s forwards;
+.checkbox-label .ball {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
 }
 
-.spectacledcoder-toggle.rollback {
-    animation: rollback 1.5s forwards;
+.checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
 }

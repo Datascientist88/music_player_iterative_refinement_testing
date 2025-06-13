@@ -1,0 +1,24 @@
+/* src/components/SoundVisualizer.css */
+.sound-visualizer-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--card-section-bg);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#canvas-two {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .sound-visualizer-wrapper {
+        padding: 1rem;
+    }
+}

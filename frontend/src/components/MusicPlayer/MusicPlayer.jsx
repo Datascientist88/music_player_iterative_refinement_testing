@@ -1,8 +1,12 @@
-// src/components/MusicPlayer/MusicPlayer.js
 import React, { useRef, useEffect, useState } from "react";
+import useAudioStore from "../../stores/useAudioStore";
 import "./MusicPlayer.css";
 
-const MusicPlayer = ({ trackUrl }) => {
+const MusicPlayer = () => {
+  // Subscribe to the store
+  const audioUrl = useAudioStore((state) => state.audioUrl);
+  const setAnalyserNode = useAudioStore((state) => state.setAnalyserNode);
+
   // Refs for DOM elements
   const audioRef = useRef(null);
   const playBtnRef = useRef(null);
@@ -46,8 +50,8 @@ const MusicPlayer = ({ trackUrl }) => {
     );
   };
 
-  // Setup visualizer
-  const setupVisualizer = () => {
+  // Modified setup function to share the analyser
+  const setupVisualizerAndShareAnalyser = () => {
     if (!audioContextRef.current && audioRef.current) {
       const context = new (window.AudioContext || window.webkitAudioContext)();
       const src = context.createMediaElementSource(audioRef.current);
@@ -59,6 +63,9 @@ const MusicPlayer = ({ trackUrl }) => {
 
       audioContextRef.current = context;
       analyserRef.current = analyser;
+
+      // Share the created analyser node with the store
+      setAnalyserNode(analyser);
 
       renderFrame();
     }
@@ -93,12 +100,10 @@ const MusicPlayer = ({ trackUrl }) => {
     animationFrameIdRef.current = requestAnimationFrame(renderFrame);
   };
 
-  // --- EFFECT HOOKS ---
-
-  // Effect for when a new track is selected
+  // This effect now triggers when the URL from the store changes
   useEffect(() => {
-    if (trackUrl && audioRef.current) {
-      audioRef.current.src = trackUrl;
+    if (audioUrl && audioRef.current) {
+      audioRef.current.src = audioUrl;
       audioRef.current.load();
       const playPromise = audioRef.current.play();
 
@@ -106,16 +111,19 @@ const MusicPlayer = ({ trackUrl }) => {
         playPromise
           .then(() => {
             setIsPlaying(true);
-            setupVisualizer(); // Setup visualizer on first play
+            setupVisualizerAndShareAnalyser();
           })
           .catch((error) => {
             console.error("Audio playback failed:", error);
             setIsPlaying(false);
           });
       }
+    } else if (!audioUrl && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = "";
+      setIsPlaying(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trackUrl]);
+  }, [audioUrl]);
 
   // Effect for controlling UI and animations based on isPlaying state
   useEffect(() => {
@@ -123,16 +131,18 @@ const MusicPlayer = ({ trackUrl }) => {
       playBtnRef.current?.classList.add("hidden");
       pauseBtnRef.current?.classList.remove("hidden");
       startAnimations();
-      animationFrameIdRef.current = requestAnimationFrame(renderFrame);
+      if (animationFrameIdRef.current)
+        cancelAnimationFrame(animationFrameIdRef.current); // Clear previous frame
+      renderFrame();
     } else {
       playBtnRef.current?.classList.remove("hidden");
       pauseBtnRef.current?.classList.add("hidden");
       stopAnimations();
       if (animationFrameIdRef.current) {
         cancelAnimationFrame(animationFrameIdRef.current);
+        animationFrameIdRef.current = null;
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
   // Effect for binding audio events
@@ -157,7 +167,6 @@ const MusicPlayer = ({ trackUrl }) => {
       audio.addEventListener("ended", handleEnded);
     }
 
-    // Cleanup function
     return () => {
       if (audio) {
         audio.removeEventListener("timeupdate", handleTimeUpdate);
@@ -166,16 +175,15 @@ const MusicPlayer = ({ trackUrl }) => {
     };
   }, []);
 
-  // --- EVENT HANDLERS ---
-
   const togglePlayPause = () => {
-    if (!trackUrl) return; // Don't do anything if no track is loaded
+    if (!audioUrl) return;
 
-    if (audioRef.current.paused) {
-      audioRef.current.play();
+    const audio = audioRef.current;
+    if (audio.paused) {
+      audio.play();
       setIsPlaying(true);
     } else {
-      audioRef.current.pause();
+      audio.pause();
       setIsPlaying(false);
     }
   };
@@ -193,14 +201,11 @@ const MusicPlayer = ({ trackUrl }) => {
     }
   };
 
-  // JSX is a direct translation of the provided HTML
   return (
     <div className="player-container">
-      {/* The visualizer and player structure */}
       <div className="wrapper">
         <div className="player">
           <div className="visualizer">
-            {/* SVG Flower 1 */}
             <div ref={svgFlowerRef} className="svg-flower">
               <svg viewBox="0 0 100 100">
                 <defs>
@@ -309,7 +314,6 @@ const MusicPlayer = ({ trackUrl }) => {
                 />
               </svg>
             </div>
-
             <canvas
               ref={canvasRef}
               id="canvas"
@@ -317,8 +321,6 @@ const MusicPlayer = ({ trackUrl }) => {
               height="296px"
             ></canvas>
             <div className="conic-bg"></div>
-
-            {/* SVG Flower 2 and Masks */}
             <div ref={svgFlower2Ref} className="svg-flower2">
               <svg viewBox="0 0 100 100">
                 <path
@@ -350,11 +352,11 @@ const MusicPlayer = ({ trackUrl }) => {
                     />
                     <path
                       className="dandylion"
-                      d="M55.97,46.82c9-2.54,16.84-1.65,23.53,2.68-6.69,4.33-14.53,5.22-23.53,2.68,8.16,4.57,13.07,10.74,14.74,18.53-7.79-1.67-13.96-6.58-18.53-14.74,2.54,9,1.65,16.84-2.68,23.53-4.33-6.69-5.22-14.53-2.68-23.53-4.57,8.16-10.74,13.07-18.53,14.74,1.67-7.79,6.58-13.96,14.74-18.53-9,2.54-16.84,1.65-23.53-2.68,6.69-4.33,14.53-5.22,23.53-2.68-8.16-4.57-13.07-10.74-14.74-18.53,7.79,1.67,13.96,6.58,18.53,14.74-2.54-9-1.65-16.84,2.68-23.53,4.33,6.69,5.22,14.53,2.68,23.53,4.57-8.16,10.74-13.07,18.53-14.74-1.67,7.79-6.58,13.96-14.74,18.53"
+                      d="M55.97,46.82c9-2.54,16.84-1.65,23.53,2.68-6.69,4.33-14.53,5.22-23.53,2.68,8.16,4.57,13.07,10.74,14.74,18.53-7.79-1.67-13.96-6.58-18.53-14.74,2.54,9,1.65,16.84-2.68,23.53-4.33-6.69-5.22-14.53-2.68-23.53-4.57,8.16-10.74,13.07-18.53,14.74,1.67-7.79,6.58-13.96,14.74-18.53-9,2.54-16.84,1.65-23.53-2.68,6.69-4.33,14.53-5.22,23.53-2.68-8.16-4.57-13.07-10.74-14.74-18.53,7.79,1.67,13.96,6.58,18.53,14.74-2.54-9-1.65-16.84,2.68-23.53,4.33,6.69,5.22,14.53,2.68,23.53,4.57-8.16,10.74,13.07,18.53-14.74-1.67,7.79-6.58,13.96-14.74,18.53"
                     />
                     <path
                       className="petal-bg-msk"
-                      d="M49.5,9.5c4.68,3.13,10.68,1.99,17.99-3.42,1.34,8.99,4.77,14.04,10.29,15.14,1.1,5.52,6.15,8.95,15.14,10.29-5.41,7.31-6.55,13.31-3.42,17.99-3.13,4.68-1.99,10.68,3.42,17.99-8.99,1.34-14.04,4.77-15.14,10.29-5.52,1.1-8.95,6.15-10.29,15.14-7.31-5.41-13.31-6.55-17.99-3.42-4.68-3.13-10.68-1.99-17.99,3.42-1.34-8.99-4.77-14.04-10.29-15.14-1.1-5.52-6.15-8.95-15.14-10.29,5.41-7.31,6.55-13.31,3.42-17.99,3.13-4.68,1.99-10.68-3.42-17.99,8.99-1.34,14.04-4.77,15.14-10.29,5.52-1.1,8.95-6.15,10.29-15.14,7.31,5.41,13.31,6.55,17.99,3.42"
+                      d="M49.5,9.5c4.68,3.13,10.68,1.99,17.99-3.42,1.34,8.99,4.77,14.04,10.29,15.14,1.1,5.52,6.15,8.95,15.14,10.29-5.41,7.31-6.55,13.31-3.42,17.99-3.13,4.68-1.99,10.68,3.42,17.99-8.99,1.34-14.04,4.77-15.14,10.29-5.52,1.1-8.95,6.15-10.29,15.14-7.31-5.41-13.31-6.55-17.99-3.42-4.68-3.13-10.68-1.99-17.99,3.42-1.34-8.99-4.77-14.04-10.29-15.14-1.1-5.52-6.15-8.95-15.14-10.29,5.41-7.31,6.55-13.31,3.42-17.99,3.13-4.68,1.99-10.68-3.42-17.99,8.99-1.34,14.04,4.77,15.14-10.29,5.52-1.1,8.95-6.15,10.29-15.14,7.31,5.41,13.31,6.55,17.99,3.42"
                     />
                     <path
                       className="petal"
@@ -383,7 +385,6 @@ const MusicPlayer = ({ trackUrl }) => {
                   r="10"
                   fill="url(#patternedCircle)"
                 />
-                {/* Pistil group */}
                 <g ref={pistilRef} className="pistil">
                   {[...Array(8)].map((_, i) => (
                     <React.Fragment key={i}>
@@ -409,18 +410,20 @@ const MusicPlayer = ({ trackUrl }) => {
                         <circle cx="48.48" cy="60" r=".6" />
                         <circle cx="51.08" cy="60" r=".6" />
                       </g>
-                      {/* Add other filament and anther groups here if needed, assigning refs */}
                     </React.Fragment>
                   ))}
                 </g>
               </svg>
             </div>
           </div>
-          <audio ref={audioRef} id="audio" hidden={true}></audio>
+          <audio
+            ref={audioRef}
+            id="audio"
+            hidden={true}
+            crossOrigin="anonymous"
+          ></audio>
         </div>
       </div>
-
-      {/* The Controls */}
       <div className="controls">
         <div
           ref={playBtnRef}

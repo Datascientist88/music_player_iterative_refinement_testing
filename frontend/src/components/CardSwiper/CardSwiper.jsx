@@ -1,11 +1,12 @@
-// src/components/CardSwiper/CardSwiper.js
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards, Mousewheel, Pagination } from "swiper/modules";
+import useAudioStore from "../../stores/useAudioStore";
 
-// Import Swiper styles for the cards effect
+// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-cards";
+import "swiper/css/pagination";
 
 import "./CardSwiper.css";
 
@@ -15,13 +16,13 @@ import track2_url from "../../assets/music/track2.mp3";
 import track3_url from "../../assets/music/track3.mp3";
 import track4_url from "../../assets/music/track4.mp3";
 import track5_url from "../../assets/music/track5.mp3";
+import track6_url from "../../assets/music/track6.mp3";
 import cover1_img from "../../assets/images/cover1.jpg";
 import cover2_img from "../../assets/images/cover2.jpg";
 import cover3_img from "../../assets/images/cover3.jpg";
 import cover4_img from "../../assets/images/cover4.jpg";
 import cover5_img from "../../assets/images/cover5.jpg";
-
-
+import cover6_img from "../../assets/images/cover6.jpg";
 
 const tracks = [
   {
@@ -45,7 +46,6 @@ const tracks = [
     url: track3_url,
     cover: cover3_img,
   },
-
   {
     title: "بحبك وحشتني",
     artist: "حسين الجسمي",
@@ -60,63 +60,67 @@ const tracks = [
     url: track5_url,
     cover: cover5_img,
   },
-
+  {
+    title: "ساعات",
+    artist: "أليسا",
+    rating: "9.3",
+    url: track6_url,
+    cover: cover6_img,
+  },
 ];
 
-const CardSwiper = ({ onPlayTrack }) => {
+const CardSwiper = () => {
+  // Get the playAudio action from the Zustand store
+  const playAudio = useAudioStore((state) => state.playAudio);
+
   return (
     <section className="card-swiper-section">
       <div className="content">
-        <div className="swiper-wrapper">
-          <Swiper
-            effect={"cards"}
-            grabCursor={true}
-            modules={[EffectCards, Mousewheel, Pagination]}
-            initialSlide={0}
-            speed={800} // Speed increased for a smoother effect
-            loop={true}
-            rotate={true}
-            mousewheel={{
-              invert: false,
-            }}
-            pagination={{
-              clickable: true,
-              dynamicBullets: true,
-            }}
-            className="my-card-swiper"
-          >
-            {tracks.map((track, index) => (
-              <SwiperSlide key={index}>
-                <img src={track.cover} alt={track.title} />
-                <div className="overlay">
-                  <div className="rating">
-                    <span>★</span> {track.rating}
-                  </div>
-                  <div className="title-container">
-                    <h2>{track.title}</h2>
-                    <p>{track.artist}</p>
-                  </div>
-                  <div className="btn-group">
-                  <button
-                    className="card-play-button"
-                    onClick={() => onPlayTrack(track.url)}
-                    aria-label={`Play ${track.title}`}
-                  >
-                    <svg viewBox="0 0 100 100">
-                      <path d="M40,30 75,50 40,70Z" />
-                    </svg>
-                    <span className="visually-hidden">Play</span>
-                  </button>
+        <Swiper
+          effect={"cards"}
+          grabCursor={true}
+          modules={[EffectCards, Mousewheel, Pagination]}
+          initialSlide={0}
+          speed={800}
+          loop={true}
+          rotate={true}
+          mousewheel={{
+            invert: false,
+          }}
+          pagination={{
+            el: ".swiper-pagination-custom", // Link to custom pagination element
+            clickable: true,
+            dynamicBullets: true,
+          }}
+          className="my-card-swiper"
+        >
+          {tracks.map((track, index) => (
+            <SwiperSlide key={index}>
+              <img src={track.cover} alt={track.title} />
+              <div className="overlay">
+                <div className="rating">
+                  <span>★</span> {track.rating}
                 </div>
+                <div className="title-container">
+                  <h2>{track.title}</h2>
+                  <p>{track.artist}</p>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <div className="swiper-pagination"></div>
-        
+                <button
+                  className="card-play-button"
+                  onClick={() => playAudio(track.url)}
+                  aria-label={`Play ${track.title}`}
+                >
+                  <svg viewBox="0 0 100 100">
+                    <path d="M40,30 75,50 40,70Z" />
+                  </svg>
+                </button>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {/* Custom Pagination container */}
+        <div className="swiper-pagination-custom"></div>
       </div>
-
       <ul className="circles">
         <li></li>
         <li></li>

@@ -77,7 +77,7 @@ main {
 /* --- THEME TOGGLE STYLES --- */
 /* Scale down toggle to fit in the header */
 .app-header .spectacledcoder-toggle-container {
-    transform: scale(0.5);
+    transform: scale(1.8);
     margin: -35px -50px; /* Adjust positioning */
 }
 
