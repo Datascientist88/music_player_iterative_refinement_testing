@@ -29,7 +29,7 @@
 /* SWIPER */
 .swiper {
   width: 380px; /* Slightly wider for the button */
-  height: 580px;
+  height: 490px;
   display: flex;
   flex-direction: column;
   justify-content: center;  
@@ -128,7 +128,7 @@
     right: 20px;
     width: 80px;
     height: 60px;
-    margin-top: 5px;
+    margin-top: 25px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.4);
