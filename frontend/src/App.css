@@ -39,23 +39,21 @@ body[data-theme='light'] {
 }
 
 .App {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    padding: 1rem;
     min-height: 100vh;
-    padding: 20px;
     box-sizing: border-box;
-    margin-top: 0%;
 }
 
 .app-header {
-    width: 100%;
+    grid-column: 1 / -1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    padding: 0 3rem;
+    padding: 0 1rem;
     box-sizing: border-box;
     color: var(--text-color);
 }
@@ -67,23 +65,31 @@ body[data-theme='light'] {
 }
 
 main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 1rem;
+}
+
+.music-player-container {
+    grid-column: 1 / 2;
+}
+
+.card-swiper-container {
+    grid-column: 2 / 3;
+}
+
+.sound-visualizer-container {
+    grid-column: 1 / -1;
 }
 
 /* --- THEME TOGGLE STYLES --- */
-/* Scale down toggle to fit in the header */
 .app-header .spectacledcoder-toggle-container {
     transform: scale(0.5);
-    margin: -35px -40px; /* Adjust positioning */
-
+    margin: -35px -40px;
 }
 
-/* LIGHT THEME for Toggle */
 body[data-theme='light'] .spectacledcoder-toggle-container {
     box-shadow: 10px 10px 10px rgb(242, 241, 241), -4px -7px 15px rgb(242, 241, 241), 2px -5px 10px rgb(255, 255, 255) inset, -10px -1px 5px rgba(255, 255, 0, 0.5) inset;
 }
@@ -97,7 +103,6 @@ body[data-theme='light'] .spectacledcoder-toggle {
     background-color: orange;
 }
 
-/* DARK THEME for Toggle */
 body[data-theme='dark'] .spectacledcoder-toggle-container {
     box-shadow: 10px 10px 10px rgba(16, 16, 16, 0.667), 0px -8px 10px rgba(32, 32, 32, 0.453), -5px -5px 15px rgb(17, 17, 17) inset, 15px 15px 50px rgb(26, 26, 26) inset;
 }
@@ -112,9 +117,9 @@ body[data-theme='dark'] .spectacledcoder-toggle {
 }
 
 footer {
-    width: 100%;
+    grid-column: 1 / -1;
     text-align: center;
-    padding: 20px 0;
+    padding: 1rem 0;
     color: var(--text-color);
     font-size: 0.8rem;
 }
@@ -124,10 +129,25 @@ footer {
 }
 
 .disclaimer b {
-    color: var(--card-text); /* Use a more dynamic color */
+    color: var(--card-text);
     text-decoration: none;
     font-weight: bold;
 }
 .disclaimer b:hover {
     opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .App {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    .music-player-container,
+    .card-swiper-container {
+        grid-column: 1 / -1;
+    }
 }

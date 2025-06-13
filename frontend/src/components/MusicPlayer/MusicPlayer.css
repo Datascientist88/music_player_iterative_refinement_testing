@@ -1,5 +1,4 @@
-
-
+/* src/components/MusicPlayer/MusicPlayer.css */
 /* Using theme variables defined in App.css */
 :root {
     --speed: 18s;
@@ -26,13 +25,14 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-top: 2rem;
+    margin: 0;
 }
 
 .wrapper {
     position: relative;
-    width: 380px;
-    height: 380px;
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,9 +53,9 @@
 
 .visualizer {
     position: relative;
-    width: 348px;
-    height: 348px;
-    padding: 24px;
+    width: 92%;
+    height: 92%;
+    padding: 6%;
     background-color: #0000;
     border-radius: 50%;
     top: 50%;
@@ -65,15 +65,19 @@
 
 .visualizer-border {
     position: absolute;
-    width: 348px;
-    height: 348px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
 }
 
 #canvas {
     border-radius: 50%;
     position: absolute;
-    margin: 2.5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 88%;
+    height: 88%;
     z-index: -5;
     overflow: hidden;
     background-color: #fff0;
@@ -81,28 +85,28 @@
 
 .conic-bg {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: 88%;
+    height: 88%;
     border-radius: 50%;
     background-color: transparent;
     box-shadow: 0 0 20px 12px #000c;
 }
 
 .svg-wrapper {
-    width: 300px;
-    height: 300px;
+    width: 88%;
+    height: 88%;
     border-radius: 50%;
 }
 
 .svg-flower,
 .svg-flower2 {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: 88%;
+    height: 88%;
     z-index: 2;
     overflow: hidden;
-    top: 24px;
-    left: 24px;
+    top: 6%;
+    left: 6%;
 }
 
 .flower {
@@ -196,7 +200,6 @@
     fill: none;
 }
 
-/*      new         */
 .hollow-petals {
     fill: url(#hollowPetals0);
     stroke: none;
@@ -259,7 +262,6 @@
     fill: #ff06;
     stroke: #32f8;
     stroke-width: 0.43;
-
 }
 
 .filament-animation {
@@ -298,19 +300,17 @@
     }
 }
 
-
-/* --- Controls --- */
 .controls {
     position: relative;
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     height: 50px;
     margin-top: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 20px;
-    gap: 15px;
+    padding: 0 1rem;
+    gap: 1rem;
 }
 
 .svg-bttns {
@@ -327,13 +327,12 @@
     stroke-linecap: round;
     stroke-linejoin: round;
     fill: #1111;
-    /* Transparent fill */
     transition: all 0.2s ease;
 }
 
 .bttn-play {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 2px solid var(--bttn-brdr1);
     cursor: pointer;
@@ -366,18 +365,16 @@
 }
 
 #volume {
-    width: 100px;
+    width: 80px;
 }
 
 .seekbar-wrapper {
     flex-grow: 1;
-    /* Allow seekbar to take available space */
 }
 
 #seekbar {
     width: 100%;
 }
-
 
 .input-range-wrapper {
     position: relative;
@@ -389,7 +386,7 @@
 }
 
 .input-range-wrapper input[type=range] {
-    --webkit-appearance: none;
+    -webkit-appearance: none;
     width: 100%;
     height: 100%;
     background: transparent;
@@ -402,7 +399,6 @@
     outline: none;
 }
 
-/* Thumb styles for Webkit */
 .input-range-wrapper input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -413,10 +409,8 @@
     background-image: radial-gradient(var(--text-color-hover) 10%, #000);
     box-shadow: 0 0 4px #fff6;
     margin-top: -8px;
-    /* Center thumb vertically */
 }
 
-/* Thumb styles for Mozilla */
 .input-range-wrapper input[type=range]::-moz-range-thumb {
     -moz-appearance: none;
     appearance: none;
@@ -429,92 +423,26 @@
     border: none;
 }
 
-.input-range-wrapper input {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 0;
-    position: absolute;
-  }
-  
-  .input-range-wrapper input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 10px;
-    height: 25px;
-    border-radius: 4px;  
-    background-color: var(--text-color);
-    background-image: radial-gradient(#cb0 10%, #000);
-    box-shadow: 0 0 4px #fff6;
-    cursor: pointer;
-  }
-  
-  .input-range-wrapper input::-moz-range-thumb {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-     width: 10px;
-    height: 25px;
-    border-radius: 4px;  
-    background-color: var(--text-color);
-    background-image: radial-gradient(#cb0 10%, #000);
-    box-shadow: 0 0 4px #fff6;
-    cursor: pointer;  
-}
- .volume-wrapper{
-    --webkit-appearance: none;
-    width: 100px;
-    height: 10px;
-    position: absolute;
-}
-.volume-wrapper ::-moz-range-thumb{
-     -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-     width: 25px;
-    height: 25px;
-    border-radius: 4px;  
-    background-color: var(--text-color);
-    background-image: radial-gradient(#cb0 10%, #000);
-    box-shadow: 0 0 4px #fff6;
-    cursor: pointer;  
-
-}
-  /*      /volume         */
 .email {
     position: absolute;
     bottom: 5px;
     right: 15px;
     color: #3339;
-}     
+}
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
     .wrapper {
-        width: 90vw;
-        height: 90vw;
-        max-width: 320px;
-        max-height: 320px;
-    }
-
-  
-    
-    #canvas {
-        width: calc(100% - 14%);
-        height: calc(100% - 14%);
-        top: 7%;
-        left: 7%;
-        margin: 0;
+        max-width: 90vw;
     }
 
     .controls {
         flex-wrap: wrap;
         height: auto;
-        gap: 10px;
+        gap: 0.5rem;
     }
 
     .seekbar-wrapper {
         width: 100%;
         order: -1;
-        /* Move seekbar to top */
     }
 }
