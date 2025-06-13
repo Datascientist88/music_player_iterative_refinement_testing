@@ -18,6 +18,7 @@ import track4_url from "../../assets/music/track4.mp3";
 import track5_url from "../../assets/music/track5.mp3";
 import track6_url from "../../assets/music/track6.mp3";
 import track7_url from "../../assets/music/track7.mp3";
+import track8_url from "../../assets/music/track8.mp3";
 import cover1_img from "../../assets/images/cover1.jpg";
 import cover2_img from "../../assets/images/cover2.jpg";
 import cover3_img from "../../assets/images/cover3.jpg";
@@ -25,6 +26,7 @@ import cover4_img from "../../assets/images/cover4.jpg";
 import cover5_img from "../../assets/images/cover5.jpg";
 import cover6_img from "../../assets/images/cover6.jpg";
 import cover7_img from "../../assets/images/cover7.jpg";
+import cover8_img from "../../assets/images/cover8.jpg";
 
 const tracks = [
   {
@@ -69,13 +71,19 @@ const tracks = [
     url: track6_url,
     cover: cover6_img,
   },
- 
   {
     title: "بامارة مين",
     artist: "احمد فريد",
     rating: "9.0",
     url: track7_url,
     cover: cover7_img,
+  },
+  {
+    title: "كلمات",
+    artist: "ماجدة الرومي",
+    rating: "9.4",
+    url: track8_url,
+    cover: cover8_img,
   },
 ];
 
