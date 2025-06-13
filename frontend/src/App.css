@@ -44,7 +44,7 @@ body[data-theme='light'] {
     grid-template-rows: auto auto;
     gap: 1rem;
     padding: 1rem;
-    min-height: 100vh;
+    height: 90vh;
     box-sizing: border-box;
 }
 
