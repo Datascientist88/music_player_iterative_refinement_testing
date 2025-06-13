@@ -113,6 +113,7 @@ const CardSwiper = () => {
                   <svg viewBox="0 0 100 100">
                     <path d="M40,30 75,50 40,70Z" />
                   </svg>
+                  Play
                 </button>
               </div>
             </SwiperSlide>

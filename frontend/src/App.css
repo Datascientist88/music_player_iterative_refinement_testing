@@ -52,8 +52,9 @@ body[data-theme='light'] {
 .app-header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+
     padding: 0 1rem;
     box-sizing: border-box;
     color: var(--text-color);
@@ -77,8 +78,9 @@ main {
 /* --- THEME TOGGLE STYLES --- */
 /* Scale down toggle to fit in the header */
 .app-header .spectacledcoder-toggle-container {
-    transform: scale(1.8);
-    margin: -35px -50px; /* Adjust positioning */
+    transform: scale(0.5);
+    margin: -35px -40px; /* Adjust positioning */
+
 }
 
 /* LIGHT THEME for Toggle */

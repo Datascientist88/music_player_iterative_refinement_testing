@@ -21,7 +21,7 @@ function App() {
     return (
         <div className="App">
             <header className="app-header">
-                <h1>Gemini Music</h1>
+                <h1>Aries Music</h1>
                 <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             </header>
 
@@ -31,12 +31,7 @@ function App() {
                 <SoundVisualizer /> {/* <-- Render the new visualizer */}
             </main>
             
-            <footer>
-                <p className="disclaimer">
-                    Visuals by <b>8351m & Ecemgo</b>. React integration by <b>Gemini</b>.
-                </p>
-            </footer>
-        </div>
+                    </div>
     );
 }
 

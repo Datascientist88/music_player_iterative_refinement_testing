@@ -14,9 +14,9 @@
   align-items: center;
   background: var(--card-section-bg);
   overflow: hidden;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 20px;
-  margin-bottom: 25%;
+  
 }
 
 .content {
@@ -29,8 +29,10 @@
 /* SWIPER */
 .swiper {
   width: 380px; /* Slightly wider for the button */
-  height: 680px;
-  padding: 50px 0;
+  height: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
 }
 
 .swiper-slide {
@@ -39,9 +41,9 @@
   border-radius: 20px;
   overflow: hidden;
   display: flex;  
-  flex-direction: column;
-  justify-content: flex-end;
-  user-select: none;
+  justify-content: center;
+  align-items: center;
+    user-select: none;
   background: #222;
    /* Fallback for image loading */
 }
@@ -126,7 +128,7 @@
     right: 20px;
     width: 80px;
     height: 60px;
-    margin-top: 80px;
+    margin-top: 5px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.4);
@@ -215,8 +217,13 @@
   .swiper {
     height: 450px;
     width: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
+
+
 /* Updated Play Button Styles */
 .card-play-button {
   position: absolute;
