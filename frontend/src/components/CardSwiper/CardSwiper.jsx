@@ -20,6 +20,9 @@ import track6_url from "../../assets/music/track6.mp3";
 import track7_url from "../../assets/music/track7.mp3";
 import track8_url from "../../assets/music/track8.mp3";
 import track9_url from "../../assets/music/track9.mp3";
+import track10_url from "../../assets/music/track10.mp3";
+import track11_url from "../../assets/music/track11.mp3";
+import track12_url from "../../assets/music/track12.mp3";
 import cover1_img from "../../assets/images/cover1.jpg";
 import cover2_img from "../../assets/images/cover2.jpg";
 import cover3_img from "../../assets/images/cover3.jpg";
@@ -29,6 +32,9 @@ import cover6_img from "../../assets/images/cover6.jpg";
 import cover7_img from "../../assets/images/cover7.jpg";
 import cover8_img from "../../assets/images/cover8.jpg";
 import cover9_img from "../../assets/images/cover9.jpg";
+import cover10_img from "../../assets/images/cover10.jpg";
+import cover11_img from "../../assets/images/cover11.jpg";
+import cover12_img from "../../assets/images/cover12.jpg";
 
 const tracks = [
   {
@@ -94,6 +100,28 @@ const tracks = [
     url: track9_url,
     cover: cover9_img,
   },
+  {
+    title: "لو كان بخاطري",
+    artist: "  امال ماهر|  راشد الماجد",
+    rating: "9.6",
+    url: track10_url,
+    cover: cover10_img,
+  },
+  {
+    title: "خذني معك",
+    artist: "فضل شاكر",
+    rating: "9.7",
+    url: track11_url,
+    cover: cover11_img,
+  },
+  {
+    title: "موجوع",
+    artist: "وائل جسار",
+    rating: "9.8",
+    url: track12_url,
+    cover: cover12_img,
+  },
+
 ];
 
 const CardSwiper = () => {
