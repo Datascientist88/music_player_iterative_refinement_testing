@@ -429,7 +429,132 @@
     right: 15px;
     color: #3339;
 }
+.volume-label {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
 
+.volume-wrapper {
+    transform: none;
+}
+
+#volume {
+    width: 100px;
+}
+
+.seekbar-wrapper {
+    flex-grow: 1;
+    /* Allow seekbar to take available space */
+}
+
+#seekbar {
+    width: 100%;
+}
+
+
+.input-range-wrapper {
+    position: relative;
+    height: 9px;
+    border-radius: 5px;
+    border: 1px solid var(--bttn-brdr1);
+    box-shadow: inset 1px 1px 4px #0006;
+    background-color: #9903;
+}
+
+.input-range-wrapper input[type=range] {
+    --webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    margin: 0;
+    cursor: pointer;
+}
+
+.input-range-wrapper input[type=range]:focus {
+    outline: none;
+}
+
+/* Thumb styles for Webkit */
+.input-range-wrapper input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 25px;
+    border-radius: 4px;
+    background-color: var(--text-color);
+    background-image: radial-gradient(var(--text-color-hover) 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    margin-top: -8px;
+    /* Center thumb vertically */
+}
+
+/* Thumb styles for Mozilla */
+.input-range-wrapper input[type=range]::-moz-range-thumb {
+    -moz-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 25px;
+    border-radius: 4px;
+    background-color: var(--text-color);
+    background-image: radial-gradient(var(--text-color-hover) 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    border: none;
+}
+
+.input-range-wrapper input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 0;
+    position: absolute;
+  }
+  
+  .input-range-wrapper input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 25px;
+    border-radius: 4px;  
+    background-color: var(--text-color);
+    background-image: radial-gradient(#cb0 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    cursor: pointer;
+  }
+  
+  .input-range-wrapper input::-moz-range-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+     width: 10px;
+    height: 25px;
+    border-radius: 4px;  
+    background-color: var(--text-color);
+    background-image: radial-gradient(#cb0 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    cursor: pointer;  
+}
+ .volume-wrapper{
+    --webkit-appearance: none;
+    width: 100px;
+    height: 10px;
+    position: absolute;
+}
+.volume-wrapper ::-moz-range-thumb{
+     -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+     width: 25px;
+    height: 25px;
+    border-radius: 4px;  
+    background-color: var(--text-color);
+    background-image: radial-gradient(#cb0 10%, #000);
+    box-shadow: 0 0 4px #fff6;
+    cursor: pointer;  
+
+}
 @media (max-width: 600px) {
     .wrapper {
         max-width: 90vw;

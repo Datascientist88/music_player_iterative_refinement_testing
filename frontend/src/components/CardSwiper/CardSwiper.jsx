@@ -23,6 +23,7 @@ import track9_url from "../../assets/music/track9.mp3";
 import track10_url from "../../assets/music/track10.mp3";
 import track11_url from "../../assets/music/track11.mp3";
 import track12_url from "../../assets/music/track12.mp3";
+import track13_url from "../../assets/music/track13.mp3";
 import cover1_img from "../../assets/images/cover1.jpg";
 import cover2_img from "../../assets/images/cover2.jpg";
 import cover3_img from "../../assets/images/cover3.jpg";
@@ -35,6 +36,7 @@ import cover9_img from "../../assets/images/cover9.jpg";
 import cover10_img from "../../assets/images/cover10.jpg";
 import cover11_img from "../../assets/images/cover11.jpg";
 import cover12_img from "../../assets/images/cover12.jpg";
+import cover13_img from "../../assets/images/cover13.jpg";
 
 const tracks = [
   {
@@ -78,6 +80,13 @@ const tracks = [
     rating: "9.3",
     url: track6_url,
     cover: cover6_img,
+  },
+  {
+    title: "بحك مش حقول تاني",
+    artist: "وائل جسار",
+    rating: "9.8",
+    url: track13_url,
+    cover: cover13_img,
   },
   {
     title: "بامارة مين",
