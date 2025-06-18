@@ -1,14 +1,28 @@
-import React from "react";
+// src/components/CardSwiper/CardSwiper.js
+
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCards, Mousewheel, Pagination } from "swiper/modules";
-import useAudioStore from "../../stores/useAudioStore";
+import { EffectCards } from "swiper/modules";
+import useAudioStore from "../../stores/useAudioStore"; // Make sure path is correct
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-cards";
-import "swiper/css/pagination";
 
+// Import custom styles and Font Awesome
 import "./CardSwiper.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import {
+  faHeart as faHeartSolid,
+  faPlay,
+  faPause,
+  faForward,
+  faBackward,
+  faShuffle,
+  faVolumeHigh,
+  faVolumeXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Import your assets
 import track1_url from "../../assets/music/track1.mp3";
@@ -132,59 +146,247 @@ const tracks = [
   },
 
 ];
+// --- Sound Visualizer Component ---
+const SoundVisualizer = () => {
+  const analyserNode = useAudioStore((state) => state.analyserNode);
+  const canvasRef = useRef(null);
+  const animationIdRef = useRef(null);
 
-const CardSwiper = () => {
-  // Get the playAudio action from the Zustand store
-  const playAudio = useAudioStore((state) => state.playAudio);
+  useEffect(() => {
+    if (!analyserNode || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const cwidth = canvas.width;
+    const cheight = canvas.height;
+    const meterWidth = 8;
+    const gap = 3;
+    const meterNum = Math.floor(cwidth / (meterWidth + gap));
+    const capHeight = 2;
+    const capStyle = "rgba(255, 255, 255, 0.8)";
+    const capYPositionArray = [];
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(1, "#2b86c5");
+    gradient.addColorStop(0.5, "#784ba0");
+    gradient.addColorStop(0, "#ff3cac");
+
+    const drawMeter = () => {
+      const array = new Uint8Array(analyserNode.frequencyBinCount);
+      analyserNode.getByteFrequencyData(array);
+      ctx.clearRect(0, 0, cwidth, cheight);
+      for (let i = 0; i < meterNum; i++) {
+        const value = array[i * Math.floor(array.length / meterNum)];
+        if (capYPositionArray.length < meterNum) capYPositionArray.push(value);
+        ctx.fillStyle = capStyle;
+        if (value < capYPositionArray[i]) {
+          ctx.fillRect(
+            i * (meterWidth + gap),
+            cheight - --capYPositionArray[i],
+            meterWidth,
+            capHeight
+          );
+        } else {
+          ctx.fillRect(
+            i * (meterWidth + gap),
+            cheight - value,
+            meterWidth,
+            capHeight
+          );
+          capYPositionArray[i] = value;
+        }
+        ctx.fillStyle = gradient;
+        ctx.fillRect(
+          i * (meterWidth + gap),
+          cheight - value + capHeight,
+          meterWidth,
+          cheight
+        );
+      }
+      animationIdRef.current = requestAnimationFrame(drawMeter);
+    };
+    drawMeter();
+
+    return () => {
+      if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current);
+    };
+  }, [analyserNode]);
 
   return (
-    <section className="card-swiper-section">
+    <div className="sound-visualizer-wrapper">
+      <canvas
+        id="visualizer-canvas"
+        width="800"
+        height="120"
+        ref={canvasRef}
+      ></canvas>
+    </div>
+  );
+};
+
+// --- Player Component ---
+const Player = () => {
+  const {
+    isPlaying,
+    playPause,
+    nextTrack,
+    prevTrack,
+    toggleShuffle,
+    isShuffle,
+    volume,
+    setVolume,
+    currentTime,
+    duration,
+    seek,
+  } = useAudioStore();
+
+  const formatTime = (seconds) => {
+    if (isNaN(seconds)) return "0:00";
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+
+  return (
+    <div className="players">
+      <SoundVisualizer />
+
+      <div className="progress-container">
+        <span>{formatTime(currentTime)}</span>
+        <input
+          type="range"
+          id="progress-bar"
+          value={isNaN(currentTime) ? 0 : currentTime}
+          max={isNaN(duration) ? 0 : duration}
+          onChange={(e) => seek(e.target.value)}
+        />
+        <span>{formatTime(duration)}</span>
+      </div>
+
+      <div className="controls">
+        <FontAwesomeIcon
+          icon={faShuffle}
+          id="shuffleBtn"
+          onClick={toggleShuffle}
+          className={isShuffle ? "active-icon" : ""}
+        />
+        <FontAwesomeIcon icon={faBackward} id="prevBtn" onClick={prevTrack} />
+        <button id="playPauseBtn" onClick={playPause}>
+          <FontAwesomeIcon
+            icon={isPlaying ? faPause : faPlay}
+            id="playPauseIcon"
+          />
+        </button>
+        <FontAwesomeIcon icon={faForward} id="nextBtn" onClick={nextTrack} />
+        <div className="volume">
+          <FontAwesomeIcon icon={volume > 0 ? faVolumeHigh : faVolumeXmark} />
+          <input
+            type="range"
+            id="volume-range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={(e) => setVolume(parseFloat(e.target.value))}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- Playlist Component ---
+const Playlist = ({ onTrackSelect }) => {
+  const { tracks, currentTrackIndex, isLiked, toggleLike } = useAudioStore();
+
+  return (
+    <div className="playlist">
+      {tracks.map((track, index) => (
+        <div
+          key={index}
+          className={`playlist-item ${
+            index === currentTrackIndex ? "active-playlist-item" : ""
+          }`}
+          onClick={() => onTrackSelect(index)}
+        >
+          <img src={track.cover} alt={track.title} />
+          <div className="song">
+            <p>{track.artist}</p>
+            <p>{track.title}</p>
+          </div>
+          <FontAwesomeIcon
+            icon={isLiked[index] ? faHeartSolid : faHeartRegular}
+            className={`like-btn ${isLiked[index] ? "liked" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLike(index);
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// --- Main Exported Component ---
+const CardSwiper = () => {
+  const { setTracks, currentTrackIndex, playTrack } = useAudioStore();
+  const swiperRef = useRef(null);
+  const [isUserInteraction, setIsUserInteraction] = useState(false);
+
+  useEffect(() => {
+    setTracks(tracks);
+  }, [setTracks]);
+
+  useEffect(() => {
+    const swiper = swiperRef.current?.swiper;
+    if (
+      swiper &&
+      swiper.realIndex !== currentTrackIndex &&
+      !isUserInteraction
+    ) {
+      swiper.slideToLoop(currentTrackIndex);
+    }
+  }, [currentTrackIndex, isUserInteraction]);
+
+  const handleSlideChange = (swiper) => {
+    if (isUserInteraction) {
+      playTrack(swiper.realIndex);
+    }
+  };
+
+  return (
+    <div className="ui">
       <div className="content">
-        <Swiper
-          effect={"cards"}
-          grabCursor={true}
-          modules={[EffectCards, Mousewheel, Pagination]}
-          initialSlide={0}
-          speed={800}
-          loop={true}
-          rotate={true}
-          mousewheel={{
+        <div className="slider-playlist">
+          <Swiper
+            ref={swiperRef}
+            effect={"cards"}
+            grabCursor={true}
+            modules={[EffectCards,Mousewheel]}
+            initialSlide={0}
+            speed={700}
+            loop={true}
+            mousewheel={{
             invert: false,
           }}
-          pagination={{
-            el: ".swiper-pagination-custom", // Link to custom pagination element
-            clickable: true,
-            dynamicBullets: true,
-          }}
-          className="my-card-swiper"
-        >
-          {tracks.map((track, index) => (
-            <SwiperSlide key={index}>
-              <img src={track.cover} alt={track.title} />
-              <div className="overlay">
-                <div className="rating">
-                  <span>★</span> {track.rating}
-                </div>
-                <div className="title-container">
-                  <h2>{track.title}</h2>
-                  <p>{track.artist}</p>
-                </div>
-                <button
-                  className="card-play-button"
-                  onClick={() => playAudio(track.url)}
-                  aria-label={`Play ${track.title}`}
-                >
-                  <svg viewBox="0 0 100 100">
-                    <path d="M40,30 75,50 40,70Z" />
-                  </svg>
-                  Play
-                </button>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        {/* Custom Pagination container */}
-        <div className="swiper-pagination-custom"></div>
+            cardsEffect={{ perSlideOffset: 10, perSlideRotate: 5 }}
+            onSlideChange={handleSlideChange}
+            onTouchStart={() => setIsUserInteraction(true)}
+            onTouchEnd={() => setTimeout(() => setIsUserInteraction(false), 50)}
+            className="swiper"
+          >
+            {tracks.map((track, index) => (
+              <SwiperSlide key={index}>
+                <img src={track.cover} alt={track.title} />
+                <h1>{track.artist}</h1>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <Playlist onTrackSelect={playTrack} />
+        </div>
+        <Player />
       </div>
       <ul className="circles">
         <li></li>
@@ -198,7 +400,7 @@ const CardSwiper = () => {
         <li></li>
         <li></li>
       </ul>
-    </section>
+    </div>
   );
 };
 
