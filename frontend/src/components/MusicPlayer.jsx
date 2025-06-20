@@ -24,6 +24,7 @@ import track12_url from "../assets/music/track12.mp3";
 import track13_url from "../assets/music/track13.mp3";
 import track14_url from "../assets/music/track14.mp3";
 import track15_url from "../assets/music/track15.mp3";
+import track16_url from "../assets/music/track16.mp3";
 
 import cover1_img from "../assets/images/cover1.jpg";
 import cover2_img from "../assets/images/cover2.jpg";
@@ -40,6 +41,7 @@ import cover12_img from "../assets/images/cover12.jpg";
 import cover13_img from "../assets/images/cover13.jpg";
 import cover14_img from "../assets/images/cover14.jpg";
 import cover15_img from "../assets/images/cover15.jpg";
+import cover16_img from "../assets/images/cover16.jpg";
 
 const tracks = [
   { title: "كتير بنعشق", artist: "شرين عبد الوهاب", url: track1_url, cover: cover1_img },
@@ -51,6 +53,7 @@ const tracks = [
   { title: "بحك مش حقول تاني", artist: "وائل جسار", url: track13_url, cover: cover13_img },
   { title: "بامارة مين", artist: "احمد فريد", url: track7_url, cover: cover7_img },
   { title: "كلمات", artist: "ماجدة الرومي", url: track8_url, cover: cover8_img },
+  { title: "انت عمري", artist: "ام كلثوم", url: track16_url, cover: cover16_img },
   { title: "خليني ذكرى", artist: "وائل جسار", url: track9_url, cover: cover9_img },
   { title: "لو كان بخاطري", artist: "امال ماهر | راشد الماجد", url: track10_url, cover: cover10_img },
   { title: "خذني معك", artist: "فضل شاكر", url: track11_url, cover: cover11_img },
