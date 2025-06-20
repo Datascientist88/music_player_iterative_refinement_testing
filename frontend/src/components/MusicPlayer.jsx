@@ -24,6 +24,7 @@ import track12_url from "../assets/music/track12.mp3";
 import track13_url from "../assets/music/track13.mp3";
 import track14_url from "../assets/music/track14.mp3"
 
+
 import cover1_img from "../assets/images/cover1.jpg";
 import cover2_img from "../assets/images/cover2.jpg";
 import cover3_img from "../assets/images/cover3.jpg";
@@ -38,6 +39,8 @@ import cover11_img from "../assets/images/cover11.jpg";
 import cover12_img from "../assets/images/cover12.jpg";
 import cover13_img from "../assets/images/cover13.jpg";
 import cover14_img from "../assets/images/cover14.jpg";
+import track15_url from "../assets/music/track15.mp3";
+import cover15_img from "../assets/images/cover15.jpg";
 
 const tracks = [
   { title: "كتير بنعشق",        artist: "شرين عبد الوهاب",   url: track1_url,  cover: cover1_img },
@@ -54,6 +57,7 @@ const tracks = [
   { title: "خذني معك",           artist: "فضل شاكر",          url: track11_url, cover: cover11_img },
   { title: "موجوع",               artist: "وائل جسار",         url: track12_url, cover: cover12_img },
   { title: " معقول",           artist: "فضل شاكر",          url: track14_url, cover: cover14_img },
+   { title:"على بالي  "  ,   artist: "شرين عبد الوهاب",   url: track15_url,  cover: cover15_img },
 ];
 
 const MusicPlayer = () => {
