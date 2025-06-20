@@ -8,7 +8,7 @@ import "./MusicPlayer.css";
 import useAudioStore from "../stores/useAudioStore";
 import SoundVisualizer from "./SoundVisualizer";
 
-// ─── Track & Cover Imports ──────────────────────────────────────────────────────────────────────────────────────────────
+// ─── Track & Cover Imports ──────────────────────────────
 import track1_url from "../assets/music/track1.mp3";
 import track2_url from "../assets/music/track2.mp3";
 import track3_url from "../assets/music/track3.mp3";
@@ -22,8 +22,8 @@ import track10_url from "../assets/music/track10.mp3";
 import track11_url from "../assets/music/track11.mp3";
 import track12_url from "../assets/music/track12.mp3";
 import track13_url from "../assets/music/track13.mp3";
-import track14_url from "../assets/music/track14.mp3"
-
+import track14_url from "../assets/music/track14.mp3";
+import track15_url from "../assets/music/track15.mp3";
 
 import cover1_img from "../assets/images/cover1.jpg";
 import cover2_img from "../assets/images/cover2.jpg";
@@ -39,25 +39,24 @@ import cover11_img from "../assets/images/cover11.jpg";
 import cover12_img from "../assets/images/cover12.jpg";
 import cover13_img from "../assets/images/cover13.jpg";
 import cover14_img from "../assets/images/cover14.jpg";
-import track15_url from "../assets/music/track15.mp3";
 import cover15_img from "../assets/images/cover15.jpg";
 
 const tracks = [
-  { title: "كتير بنعشق",        artist: "شرين عبد الوهاب",   url: track1_url,  cover: cover1_img },
-  { title: "مشاعر",               artist: "شرين عبد الوهاب",   url: track2_url,  cover: cover2_img },
-  { title: "مين دا اللي نسيك",    artist: "نانسي عجرم",         url: track3_url,  cover: cover3_img },
-  { title: "بحبك وحشتني",        artist: "حسين الجسمي",        url: track4_url,  cover: cover4_img },
-  { title: "بيت حبيبي",           artist: "يارا",               url: track5_url,  cover: cover5_img },
-  { title: "ساعات",               artist: "أليسا",              url: track6_url,  cover: cover6_img },
-  { title: "بحك مش حقول تاني",    artist: "وائل جسار",         url: track13_url, cover: cover13_img },
-  { title: "بامارة مين",          artist: "احمد فريد",         url: track7_url,  cover: cover7_img },
-  { title: "كلمات",               artist: "ماجدة الرومي",       url: track8_url,  cover: cover8_img },
-  { title: "خليني ذكرى",          artist: "وائل جسار",         url: track9_url,  cover: cover9_img },
-  { title: "لو كان بخاطري",       artist: "امال ماهر | راشد الماجد", url: track10_url, cover: cover10_img },
-  { title: "خذني معك",           artist: "فضل شاكر",          url: track11_url, cover: cover11_img },
-  { title: "موجوع",               artist: "وائل جسار",         url: track12_url, cover: cover12_img },
-  { title: " معقول",           artist: "فضل شاكر",          url: track14_url, cover: cover14_img },
-   { title:"على بالي  "  ,   artist: "شرين عبد الوهاب",   url: track15_url,  cover: cover15_img },
+  { title: "كتير بنعشق", artist: "شرين عبد الوهاب", url: track1_url, cover: cover1_img },
+  { title: "مشاعر", artist: "شرين عبد الوهاب", url: track2_url, cover: cover2_img },
+  { title: "مين دا اللي نسيك", artist: "نانسي عجرم", url: track3_url, cover: cover3_img },
+  { title: "بحبك وحشتني", artist: "حسين الجسمي", url: track4_url, cover: cover4_img },
+  { title: "بيت حبيبي", artist: "يارا", url: track5_url, cover: cover5_img },
+  { title: "ساعات", artist: "أليسا", url: track6_url, cover: cover6_img },
+  { title: "بحك مش حقول تاني", artist: "وائل جسار", url: track13_url, cover: cover13_img },
+  { title: "بامارة مين", artist: "احمد فريد", url: track7_url, cover: cover7_img },
+  { title: "كلمات", artist: "ماجدة الرومي", url: track8_url, cover: cover8_img },
+  { title: "خليني ذكرى", artist: "وائل جسار", url: track9_url, cover: cover9_img },
+  { title: "لو كان بخاطري", artist: "امال ماهر | راشد الماجد", url: track10_url, cover: cover10_img },
+  { title: "خذني معك", artist: "فضل شاكر", url: track11_url, cover: cover11_img },
+  { title: "موجوع", artist: "وائل جسار", url: track12_url, cover: cover12_img },
+  { title: "معقول", artist: "فضل شاكر", url: track14_url, cover: cover14_img },
+  { title: "على بالي", artist: "شرين عبد الوهاب", url: track15_url, cover: cover15_img },
 ];
 
 const MusicPlayer = () => {
@@ -77,6 +76,7 @@ const MusicPlayer = () => {
   } = useAudioStore();
 
   const swiperRef = useRef(null);
+  const playlistRef = useRef(null);
 
   useEffect(() => {
     useAudioStore.getState().setTracks(tracks);
@@ -88,12 +88,24 @@ const MusicPlayer = () => {
     }
   }, [currentTrackIndex]);
 
+  // ✅ Pin active item near top with margin
+  useEffect(() => {
+    if (playlistRef.current && currentTrackIndex !== null) {
+      const activeItem = playlistRef.current.querySelector(".active-playlist-item");
+      if (activeItem) {
+        const container = playlistRef.current;
+        const margin = 25; // pixels of comfortable top margin
+        const newScrollTop = activeItem.offsetTop - margin;
+        container.scrollTop = newScrollTop >= 0 ? newScrollTop : 0;
+      }
+    }
+  }, [currentTrackIndex]);
+
   return (
     <main>
       <div className="slider-playlist">
-        {/* ─── LEFT COLUMN ────────────────────────────────────────────────────────── */}
+        {/* LEFT COLUMN */}
         <div className="left-column">
-          {/* Card Swiper */}
           <div className="swiper-container">
             <Swiper
               ref={swiperRef}
@@ -115,10 +127,8 @@ const MusicPlayer = () => {
             </Swiper>
           </div>
 
-          {/* Sound Visualizer */}
           <SoundVisualizer />
 
-          {/* Controls Panel */}
           <div className="controls">
             <i className="fa-solid fa-shuffle" onClick={toggleShuffle} />
             <i className="fa-solid fa-backward" onClick={prevTrack} />
@@ -146,7 +156,6 @@ const MusicPlayer = () => {
             </div>
           </div>
 
-          {/* Progress Bar */}
           <input
             type="range"
             id="progress-bar"
@@ -157,8 +166,8 @@ const MusicPlayer = () => {
           />
         </div>
 
-        {/* ─── RIGHT COLUMN (PLAYLIST) ──────────────────────────────────────────── */}
-        <div className="playlist">
+        {/* RIGHT COLUMN - PLAYLIST */}
+        <div className="playlist" ref={playlistRef}>
           {tracks.map((track, idx) => (
             <div
               key={idx}

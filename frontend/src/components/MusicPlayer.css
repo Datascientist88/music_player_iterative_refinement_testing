@@ -68,6 +68,7 @@ p {
 .playlist {
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+  scroll-behavior: smooth;
   padding-right: 5px;
   scrollbar-width: none; /* Firefox */
 }
@@ -115,6 +116,7 @@ p {
   align-items: center;
   padding: 8px 10px;
   margin-bottom: 15px;
+  margin-top: 10px;
   border-bottom: 2px solid var(--primary-clr);
   color: var(--light-clr);
   cursor: pointer;
