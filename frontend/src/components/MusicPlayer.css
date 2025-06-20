@@ -109,7 +109,7 @@ p {
   margin: auto;
 }
 
-/* ─── PLAYLIST ITEMS ─────────────────────────────────────────────────────────── */
+/* ─── PLAYLIST ITEMS ───────────────────────────────────────────────────────--──── */
 .playlist-item {
   display: grid;
   grid-template-columns: 15% 65% 15% 5%;
