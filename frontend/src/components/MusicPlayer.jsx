@@ -25,6 +25,7 @@ import track13_url from "../assets/music/track13.mp3";
 import track14_url from "../assets/music/track14.mp3";
 import track15_url from "../assets/music/track15.mp3";
 import track16_url from "../assets/music/track16.mp3";
+import track17_url from "../assets/music/track17.mp3";
 
 import cover1_img from "../assets/images/cover1.jpg";
 import cover2_img from "../assets/images/cover2.jpg";
@@ -61,6 +62,7 @@ const tracks = [
   { title: "موجوع", artist: "وائل جسار", url: track12_url, cover: cover12_img },
   { title: "معقول", artist: "فضل شاكر", url: track14_url, cover: cover14_img },
   { title: "على بالي", artist: "شرين عبد الوهاب", url: track15_url, cover: cover15_img },
+   { title: "حبيبي بالبونت العريض", artist: "حسين الجسمي", url: track17_url, cover: cover4_img },
 ];
 
 const MusicPlayer = () => {
