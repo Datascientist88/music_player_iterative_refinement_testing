@@ -26,6 +26,7 @@ import track14_url from "../assets/music/track14.mp3";
 import track15_url from "../assets/music/track15.mp3";
 import track16_url from "../assets/music/track16.mp3";
 import track17_url from "../assets/music/track17.mp3";
+import track18_url from "../assets/music/track18.mp3";
 
 import cover1_img from "../assets/images/cover1.jpg";
 import cover2_img from "../assets/images/cover2.jpg";
@@ -43,6 +44,7 @@ import cover13_img from "../assets/images/cover13.jpg";
 import cover14_img from "../assets/images/cover14.jpg";
 import cover15_img from "../assets/images/cover15.jpg";
 import cover16_img from "../assets/images/cover16.jpg";
+import cover18_img from "../assets/images/cover18.jpg";
 
 
 const tracks = [
@@ -50,6 +52,7 @@ const tracks = [
   { title: "مشاعر", artist: "شرين عبد الوهاب", url: track2_url, cover: cover2_img },
   { title: "مين دا اللي نسيك", artist: "نانسي عجرم", url: track3_url, cover: cover3_img },
   { title: "بحبك وحشتني", artist: "حسين الجسمي", url: track4_url, cover: cover4_img },
+    { title: "غريبة الناس", artist: "وائل جسار", url: track18_url, cover: cover18_img },
   { title: "بيت حبيبي", artist: "يارا", url: track5_url, cover: cover5_img },
   { title: "ساعات", artist: "أليسا", url: track6_url, cover: cover6_img },
   { title: "بحك مش حقول تاني", artist: "وائل جسار", url: track13_url, cover: cover13_img },
