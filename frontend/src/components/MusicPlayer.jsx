@@ -26,6 +26,8 @@ import track14_url from "../assets/music/track14.mp3";
 import track15_url from "../assets/music/track15.mp3";
 import track17_url from "../assets/music/track17.mp3";
 import track18_url from "../assets/music/track18.mp3";
+import track19_url from "../assets/music/track19.mp3";
+import track20_url from "../assets/music/track20.mp3";
 
 import cover1_img from "../assets/images/cover1.jpg";
 import cover2_img from "../assets/images/cover2.jpg";
@@ -56,6 +58,7 @@ const tracks = [
   { title: "بحك مش حقول تاني", artist: "وائل جسار", url: track13_url, cover: cover13_img },
   { title: "بامارة مين", artist: "احمد فريد", url: track7_url, cover: cover7_img },
   { title: "كلمات", artist: "ماجدة الرومي", url: track8_url, cover: cover8_img },
+   { title: "بكلمة منك", artist: "شرين عبد الوهاب", url: track20_url, cover: cover2_img },
   { title: "خليني ذكرى", artist: "وائل جسار", url: track9_url, cover: cover9_img },
   { title: "لو كان بخاطري", artist: "امال ماهر | راشد الماجد", url: track10_url, cover: cover10_img },
   { title: "خذني معك", artist: "فضل شاكر", url: track11_url, cover: cover11_img },
@@ -63,6 +66,7 @@ const tracks = [
   { title: "معقول", artist: "فضل شاكر", url: track14_url, cover: cover14_img },
   { title: "على بالي", artist: "شرين عبد الوهاب", url: track15_url, cover: cover15_img },
    { title: "حبيبي بالبونت العريض", artist: "حسين الجسمي", url: track17_url, cover: cover4_img },
+    { title: "بتمون", artist: "أليسا", url: track19_url, cover: cover6_img },
 ];
 
 const MusicPlayer = () => {
