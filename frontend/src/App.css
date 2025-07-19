@@ -58,11 +58,11 @@ p {
   gap: 20px;
 
   /* Desktop: bigger and neat */
-  width: 90vw;
+  width: 100vw;
   height: 100%;
 
 
-  padding: 20px;
+  padding: 120px;
   border-radius: 20px;
   background: var(--bg-glass);
   backdrop-filter: blur(15px);
@@ -156,7 +156,7 @@ p {
 }
 
 .sound-visualizer-container canvas {
-  display: block;
+  display: inline-block;
   width: 100%;
   height: 100%;
 }

@@ -48,7 +48,7 @@ p {
 .left-column {
   display: grid;
   grid-template-rows: auto auto auto auto;
-  row-gap: 20px;
+  row-gap: 14px;
 }
 
 /* ensure swiper spans full width of left column */

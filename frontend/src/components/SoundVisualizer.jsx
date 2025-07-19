@@ -23,7 +23,7 @@ const SoundVisualizer = () => {
         
         let cheight = canvas.height;
         const meterWidth = 8;
-        const gap = 2;
+        const gap = 1;
         const meterNum = Math.floor(canvas.width / (meterWidth + gap));
         const capHeight = 2;
         const capStyle = "rgba(255, 255, 255, 0.8)";
